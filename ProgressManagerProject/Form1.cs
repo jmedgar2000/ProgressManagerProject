@@ -77,7 +77,8 @@ namespace ProgressManagerProject
             
             pm.ProgressBar = progressBarEx1;
             pm.NumberOfDecimalsForProgress = 2;
-            pm.ProgressTickEvent += Pm_ProgressTickEvent; 
+            pm.ProgressTickEvent += Pm_ProgressTickEvent;
+            pm.ProcessCompletedEvent += Pm_ProcessCompletedEvent;
 
             //var subTask = pm.CreateSubProgressTask(0);
 
@@ -91,16 +92,25 @@ namespace ProgressManagerProject
                 pm.SetInitialTime();
                 pm.ItemsCount = words.Count();
 
+                pm.SetControlText(lblElapsedTime, "{et}");
+                pm.SetControlText(lblRemainingTime, "{rt}");
+
                 for (int i = 0; i < words.Count; i++)
                 {
-                    System.Threading.Thread.Sleep(rnd.Next(200, 500));
+                    System.Threading.Thread.Sleep(rnd.Next(100, 400));
                     pm.PerformStep();
                     pm.SetControlText(label14, "{prog} %");
-                    pm.SetControlText(lblRemainingTime, "{rt}");
                     pm.SetControlText(label16, "Procesando {cii} de {ic} archivos");
                 }
-
             }
+        }
+
+        private void Pm_ProcessCompletedEvent(object sender)
+        {
+            var progressMan = sender as ProgressManager;
+
+            progressMan.SetControlText(lblElapsedTime, "{et}");
+            progressMan.SetControlText(lblRemainingTime, "{rt}");
         }
 
         private void Pm_ProgressTickEvent(object sender)
@@ -108,6 +118,7 @@ namespace ProgressManagerProject
             var progressMan = sender as ProgressManager;
 
             progressMan.SetControlText(lblElapsedTime, "{et}");
+            progressMan.SetControlText(lblRemainingTime, "{rt}");
         }
 
         private void button2_Click(object sender, EventArgs e)

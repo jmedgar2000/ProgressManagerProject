@@ -13,7 +13,6 @@ namespace ProgressManagerProject
         private int currentItemIndex = 0;
         private int numberOfDecimalsForProgress;
         private int remainingItemsCount;
-        private double processTime;
         private float avgTaskTime;
         private float progress;
         private TimeSpan previousTime;
@@ -34,7 +33,7 @@ namespace ProgressManagerProject
         public ProgressManager ParentProgressManager { get; set; }
         public List<ProgressManager> SubProgressManagers { get; }
 
-        public delegate void ProcessCompleted();
+        public delegate void ProcessCompleted(object sender);
         public event ProcessCompleted ProcessCompletedEvent;
         public delegate void ProgressTick(object sender);
         public event ProgressTick ProgressTickEvent;
@@ -92,7 +91,7 @@ namespace ProgressManagerProject
             return progressManager;
         }
 
-        private void ProgressManager_ProcessCompletedEvent()
+        private void ProgressManager_ProcessCompletedEvent(object sender)
         {
             PerformStep();
         }
@@ -115,9 +114,6 @@ namespace ProgressManagerProject
 
         private string GetRawText(string text)
         {
-            //ItemsCount            ic
-            //CurrentItemIndex      cii
-            //RemainingItemsCount   ric
             text = text.Replace("{ic}", ItemsCount.ToString());
             text = text.Replace("{cii}", currentItemIndex.ToString());
             text = text.Replace("{ric}", remainingItemsCount.ToString());
@@ -134,21 +130,7 @@ namespace ProgressManagerProject
             if (ItemsCount <= 0) return;
 
             currentItemIndex++;
-
-            if (currentItemIndex == 1)
-            {
-                currentTime = DateTime.Now.TimeOfDay;
-                processTime = currentTime.Subtract(previousTime).TotalMilliseconds;
-                avgTaskTime = (float)processTime;
-            }
-            else
-            {
-                previousTime = currentTime;
-                currentTime = DateTime.Now.TimeOfDay;
-                processTime += currentTime.Subtract(previousTime).TotalMilliseconds;
-                avgTaskTime = (float)processTime / (currentItemIndex);
-            }
-                       
+            avgTaskTime = (float)DateTime.Now.Subtract(startTime).TimeOfDay.TotalMilliseconds / currentItemIndex; 
             progress = (currentItemIndex / (float)ItemsCount) * 100F;
             
             if (ProgressBar != null)
@@ -157,12 +139,6 @@ namespace ProgressManagerProject
                 {
                     ProgressBar.Value = (int)progress;
                 });
-            }
-
-            //TODO: ?
-            if (currentItemIndex == 2)
-            {
-                var c = 0;
             }
 
             remainingItemsCount = (ItemsCount - currentItemIndex);
@@ -198,21 +174,26 @@ namespace ProgressManagerProject
             
             if ((int)progress == 100)
             {
+                ResetTask();
                 timer.Stop();
 
                 if (ProcessCompletedEvent != null)
                 {
-                    ProcessCompletedEvent();
+                    ProcessCompletedEvent(this);
                 }
             }
         }
 
         public void ResetTask()
         {
+            ItemsCount = 0;
             currentItemIndex = 0;
             remainingItemsCount = 0;
-            processTime = 0;
             avgTaskTime = 0;
+            progress = 0;
+            remainingTime = new TimeSpan(0);
+            estimatedTime =new TimeSpan();
+            elapsedtime = new TimeSpan();
         }
     }
 }
