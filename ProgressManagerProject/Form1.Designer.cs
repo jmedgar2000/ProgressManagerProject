@@ -259,7 +259,7 @@
             this.progressBar3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar3.ForeColor = System.Drawing.Color.Silver;
-            this.progressBar3.Location = new System.Drawing.Point(87, 231);
+            this.progressBar3.Location = new System.Drawing.Point(17, 69);
             this.progressBar3.Name = "progressBar3";
             this.progressBar3.Size = new System.Drawing.Size(313, 15);
             this.progressBar3.Step = 1;
@@ -374,7 +374,6 @@
             this.alphaGradientPanel2.Colors.Add(this.colorWithAlpha3);
             this.alphaGradientPanel2.ContentPadding = new System.Windows.Forms.Padding(0);
             this.alphaGradientPanel2.Controls.Add(this.progressBarEx2);
-            this.alphaGradientPanel2.Controls.Add(this.progressBarEx1);
             this.alphaGradientPanel2.Controls.Add(this.lblElapsedTime);
             this.alphaGradientPanel2.Controls.Add(this.label19);
             this.alphaGradientPanel2.Controls.Add(this.label15);
@@ -382,6 +381,7 @@
             this.alphaGradientPanel2.Controls.Add(this.label14);
             this.alphaGradientPanel2.Controls.Add(this.lblRemainingTime);
             this.alphaGradientPanel2.Controls.Add(this.label16);
+            this.alphaGradientPanel2.Controls.Add(this.progressBar3);
             this.alphaGradientPanel2.CornerRadius = 7;
             this.alphaGradientPanel2.Corners = ((BlueActivity.Controls.Corner)((((BlueActivity.Controls.Corner.TopLeft | BlueActivity.Controls.Corner.TopRight) 
             | BlueActivity.Controls.Corner.BottomLeft) 
@@ -451,7 +451,7 @@
             // 
             // barberPoleProgressPainter1
             // 
-            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
+            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
             this.barberPoleProgressPainter1.GlossPainter = null;
             this.barberPoleProgressPainter1.ProgressBorderPainter = this.plainBorderPainter1;
             // 
@@ -462,7 +462,7 @@
             this.progressBarEx1.BorderPainter = this.plainBorderPainter1;
             this.progressBarEx1.Font = new System.Drawing.Font("Power Green", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.progressBarEx1.ForeColor = System.Drawing.Color.Black;
-            this.progressBarEx1.Location = new System.Drawing.Point(17, 67);
+            this.progressBarEx1.Location = new System.Drawing.Point(105, 194);
             this.progressBarEx1.MarqueePercentage = 25;
             this.progressBarEx1.MarqueeSpeed = 30;
             this.progressBarEx1.MarqueeStep = 1;
@@ -488,6 +488,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 419);
             this.Controls.Add(this.alphaGradientPanel1);
+            this.Controls.Add(this.progressBarEx1);
             this.Controls.Add(this.alphaGradientPanel2);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.button2);
@@ -495,7 +496,6 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.progressBar3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);

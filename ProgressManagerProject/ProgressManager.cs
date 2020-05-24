@@ -1,9 +1,6 @@
 ﻿using ProgressODoom;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProgressManagerProject
@@ -15,21 +12,14 @@ namespace ProgressManagerProject
         private int remainingItemsCount;
         private float avgTaskTime;
         private float progress;
-        private TimeSpan previousTime;
-        private TimeSpan currentTime;
         private TimeSpan remainingTime;
         private TimeSpan estimatedTime;
         private TimeSpan elapsedtime;
         private TimeSpan startTime;
         private System.Timers.Timer timer;
-        //private TimerEx timex;
 
         public int ItemsCount { get; set; }
-        public Label ValueLabel { get; set; }
-        public Label CurrentItemIndexLabel { get; set; }
-        public Label RemainingItemsCountLabel { get; set; }
-        public Label ProgressLabel { get; set; }
-        public ProgressBarEx ProgressBar { get; set; }
+        public ProgressBar ProgressBar { get; set; }
         public ProgressManager ParentProgressManager { get; set; }
         public List<ProgressManager> SubProgressManagers { get; }
 
@@ -59,7 +49,6 @@ namespace ProgressManagerProject
         
         public ProgressManager(int itemsCount)
         {
-            
             ItemsCount = itemsCount;
             numberOfDecimalsForProgress = 2;
 
@@ -99,7 +88,6 @@ namespace ProgressManagerProject
         public void SetInitialTime()
         {
             startTime = DateTime.Now.TimeOfDay;
-            previousTime = DateTime.Now.TimeOfDay;
             timer.Enabled = true;
             timer.Start();
         }
@@ -146,31 +134,6 @@ namespace ProgressManagerProject
             estimatedTime= TimeSpan.FromMilliseconds(ItemsCount * avgTaskTime);
             //Console.WriteLine("index: " + currentItemIndex + "  AvgTaskTime: " + avgTaskTime 
             //    + "  Remaining items: " + remainingItemsCount  + "   elapsedTime: " + elapsedTime);
-
-            if (CurrentItemIndexLabel != null)
-            {
-                CurrentItemIndexLabel.Invoke((MethodInvoker)delegate
-                {
-                    CurrentItemIndexLabel.Text = currentItemIndex.ToString();
-                });
-            }
-
-            if (RemainingItemsCountLabel != null)
-            {
-                RemainingItemsCountLabel.Invoke((MethodInvoker)delegate
-                {
-                    RemainingItemsCountLabel.Text = (ItemsCount - currentItemIndex).ToString();
-                });
-            }
-
-            if (ProgressLabel != null)
-            {
-                ProgressLabel.Invoke((MethodInvoker)delegate
-                {
-                    ProgressLabel.Text = progress.ToString("f" + numberOfDecimalsForProgress) + " %";
-
-                });
-            }
             
             if ((int)progress == 100)
             {
@@ -186,9 +149,9 @@ namespace ProgressManagerProject
 
         public void ResetTask()
         {
-            ItemsCount = 0;
             currentItemIndex = 0;
             remainingItemsCount = 0;
+            ItemsCount = 0;
             avgTaskTime = 0;
             progress = 0;
             remainingTime = new TimeSpan(0);

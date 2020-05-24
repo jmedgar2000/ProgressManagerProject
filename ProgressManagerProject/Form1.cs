@@ -75,7 +75,7 @@ namespace ProgressManagerProject
 
             var pm = new ProgressManager(masterWords.Count);
             
-            pm.ProgressBar = progressBarEx1;
+            pm.ProgressBar = progressBar3;
             pm.NumberOfDecimalsForProgress = 2;
             pm.ProgressTickEvent += Pm_ProgressTickEvent;
             pm.ProcessCompletedEvent += Pm_ProcessCompletedEvent;
