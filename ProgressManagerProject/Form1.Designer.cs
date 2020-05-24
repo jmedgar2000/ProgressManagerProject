@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -65,6 +66,7 @@
             this.plainBorderPainter1 = new ProgressODoom.PlainBorderPainter();
             this.barberPoleProgressPainter1 = new ProgressODoom.BarberPoleProgressPainter();
             this.progressBarEx1 = new ProgressODoom.ProgressBarEx();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.alphaGradientPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -449,7 +451,7 @@
             // 
             // barberPoleProgressPainter1
             // 
-            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
+            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
             this.barberPoleProgressPainter1.GlossPainter = null;
             this.barberPoleProgressPainter1.ProgressBorderPainter = this.plainBorderPainter1;
             // 
@@ -474,6 +476,11 @@
             this.progressBarEx1.Size = new System.Drawing.Size(313, 15);
             this.progressBarEx1.TabIndex = 16;
             this.progressBarEx1.Value = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -504,7 +511,6 @@
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.alphaGradientPanel2.ResumeLayout(false);
             this.alphaGradientPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -551,6 +557,7 @@
         private ProgressODoom.PlainBorderPainter plainBorderPainter1;
         private ProgressODoom.PlainBackgroundPainter plainBackgroundPainter1;
         private ProgressODoom.ProgressBarEx progressBarEx2;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

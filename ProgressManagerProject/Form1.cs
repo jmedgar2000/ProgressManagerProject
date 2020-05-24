@@ -19,26 +19,14 @@ namespace ProgressManagerProject
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //HarrProgressBar pgb = new HarrProgressBar();
-            //pgb.Padding = new Padding(5);
-            //pgb.LeftText = "1";
-            //pgb.MainText = "47x100x5400 - 20/100";
-            //pgb.FillDegree = 20;
-            //pgb.RightText = "1";
-            //pgb.StatusText = "Raw";
-            //pgb.StatusBarColor = 0;
-            //pgb.Size = new Size(350,30);
-            //pgb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            //flowLayoutPanel1.Controls.Add(pgb);
-
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            var f = "";
+
+            for (int i=0; i<100000; i++)
+            {
+                f += "w";
+            }
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -89,14 +77,14 @@ namespace ProgressManagerProject
             
             pm.ProgressBar = progressBarEx1;
             pm.NumberOfDecimalsForProgress = 2;
+            pm.ProgressTickEvent += Pm_ProgressTickEvent; 
 
-            var subTask = pm.CreateSubProgressTask(0);
+            //var subTask = pm.CreateSubProgressTask(0);
 
-            subTask.ProgressBar = progressBarEx2;
+            //subTask.ProgressBar = progressBarEx2;
 
             foreach (var mw in masterWords)
             {
-                //pm.WriteValueLabel(mw);
                 var words = (from w in l where w == mw select w).ToList();
 
                 pm.ResetTask();
@@ -105,18 +93,21 @@ namespace ProgressManagerProject
 
                 for (int i = 0; i < words.Count; i++)
                 {
-                    System.Threading.Thread.Sleep(rnd.Next(200, 400));
+                    System.Threading.Thread.Sleep(rnd.Next(200, 500));
                     pm.PerformStep();
-                    //subTask.SetControlText(label12, "Procesado {cii} de {ic} ({prog} %)");
-                    //subTask.SetControlText(label4, "Tiempo restante: {et}");
-                    //subTask.SetControlText(label13, "Tiempo transcurrido: {ts}");
                     pm.SetControlText(label14, "{prog} %");
                     pm.SetControlText(lblRemainingTime, "{rt}");
                     pm.SetControlText(label16, "Procesando {cii} de {ic} archivos");
-                    pm.SetControlText(lblElapsedTime, "{et}");
                 }
 
             }
+        }
+
+        private void Pm_ProgressTickEvent(object sender)
+        {
+            var progressMan = sender as ProgressManager;
+
+            progressMan.SetControlText(lblElapsedTime, "{et}");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -124,9 +115,9 @@ namespace ProgressManagerProject
             backgroundWorker1.RunWorkerAsync();
         }
 
-        //private void panel1_Paint(object sender, PaintEventArgs e)
-        //{
-        //    ControlPaint.DrawBorder(e.Graphics, this.panel1.ClientRectangle, Color.DarkBlue, ButtonBorderStyle.Solid);
-        //}
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("TEst");
+        }
     }
 }

@@ -10,25 +10,34 @@ namespace ProgressManagerProject
 {
     class ProgressManager
     {
+        private int currentItemIndex = 0;
         private int numberOfDecimalsForProgress;
         private int remainingItemsCount;
-        public Label ValueLabel { get; set; }
-        public int ItemsCount { get; set; }
-        public Label CurrentItemIndexLabel { get; set; }
-        public Label RemainingItemsCountLabel { get; set; }
-        public Label ProgressLabel { get; set; }
-        public ProgressBarEx ProgressBar { get; set; }
-        private int currentItemIndex = 0;
-        public ProgressManager ParentProgressManager { get; set; }
-        public List<ProgressManager> SubProgressManagers { get; }
+        private double processTime;
+        private float avgTaskTime;
+        private float progress;
         private TimeSpan previousTime;
         private TimeSpan currentTime;
         private TimeSpan remainingTime;
         private TimeSpan estimatedTime;
         private TimeSpan elapsedtime;
-        private double processTime;
-        private float avgTaskTime;
-        private float progress;
+        private TimeSpan startTime;
+        private System.Timers.Timer timer;
+        //private TimerEx timex;
+
+        public int ItemsCount { get; set; }
+        public Label ValueLabel { get; set; }
+        public Label CurrentItemIndexLabel { get; set; }
+        public Label RemainingItemsCountLabel { get; set; }
+        public Label ProgressLabel { get; set; }
+        public ProgressBarEx ProgressBar { get; set; }
+        public ProgressManager ParentProgressManager { get; set; }
+        public List<ProgressManager> SubProgressManagers { get; }
+
+        public delegate void ProcessCompleted();
+        public event ProcessCompleted ProcessCompletedEvent;
+        public delegate void ProgressTick(object sender);
+        public event ProgressTick ProgressTickEvent;
 
         public int NumberOfDecimalsForProgress
         {
@@ -48,10 +57,28 @@ namespace ProgressManagerProject
                 }
             }
         }
+        
+        public ProgressManager(int itemsCount)
+        {
+            
+            ItemsCount = itemsCount;
+            numberOfDecimalsForProgress = 2;
 
-        public delegate void ProcessCompleted();
-        public event ProcessCompleted ProcessCompletedEvent;
+            timer = new System.Timers.Timer(1000);
+            timer.Elapsed += Timer_Elapsed;
 
+            SubProgressManagers = new List<ProgressManager>();
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (ProgressTickEvent != null)
+            {
+                elapsedtime = DateTime.Now.Subtract(startTime).TimeOfDay;
+                ProgressTickEvent(this);
+            }
+        }
+          
         public ProgressManager CreateSubProgressTask(int itemsCount)
         {
             ProgressManager progressManager = new ProgressManager(itemsCount);
@@ -69,50 +96,15 @@ namespace ProgressManagerProject
         {
             PerformStep();
         }
-
-        public ProgressManager(int itemsCount)
-        {
-            ItemsCount = itemsCount;
-            numberOfDecimalsForProgress = 2;
-            
-
-            SubProgressManagers = new List<ProgressManager>();
-        }
-
-        public void WriteValueLabel(string text)
-        {
-            if (ValueLabel == null)
-            {
-                throw new ArgumentNullException("ValueLabel property is not set");
-
-            }
-
-            ValueLabel.Invoke((MethodInvoker)delegate
-            {
-                ValueLabel.Text = text;
-            });
-
-        }
-
+        
         public void SetInitialTime()
         {
+            startTime = DateTime.Now.TimeOfDay;
             previousTime = DateTime.Now.TimeOfDay;
+            timer.Enabled = true;
+            timer.Start();
         }
-
-        public void PerformStep(string text)
-        {
-            //Es la misma que performStep notmal pero indicando que valor de texto esta siendo procesado
-            if (ItemsCount <= 0) return;
-
-            ValueLabel.Invoke((MethodInvoker)delegate
-            {
-                ValueLabel.Text = text;
-            });
-
-            PerformStep();
-
-        }
-
+        
         public void SetControlText(Label label, string text)
         {
             label.Invoke((MethodInvoker)delegate
@@ -167,13 +159,13 @@ namespace ProgressManagerProject
                 });
             }
 
+            //TODO: ?
             if (currentItemIndex == 2)
             {
                 var c = 0;
             }
 
             remainingItemsCount = (ItemsCount - currentItemIndex);
-            elapsedtime = TimeSpan.FromMilliseconds(processTime);
             remainingTime = TimeSpan.FromMilliseconds(remainingItemsCount * avgTaskTime);
             estimatedTime= TimeSpan.FromMilliseconds(ItemsCount * avgTaskTime);
             //Console.WriteLine("index: " + currentItemIndex + "  AvgTaskTime: " + avgTaskTime 
@@ -206,6 +198,8 @@ namespace ProgressManagerProject
             
             if ((int)progress == 100)
             {
+                timer.Stop();
+
                 if (ProcessCompletedEvent != null)
                 {
                     ProcessCompletedEvent();
@@ -220,6 +214,5 @@ namespace ProgressManagerProject
             processTime = 0;
             avgTaskTime = 0;
         }
-
     }
 }
