@@ -1,4 +1,5 @@
 ﻿
+using ProgressManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,7 +74,7 @@ namespace ProgressManagerProject
             var masterWords = l.Distinct().ToList();
             Random rnd = new Random();
 
-            var pm = new ProgressManager(masterWords.Count);
+            var pm = new Progress(masterWords.Count);
             
             pm.ProgressBar = progressBar3;
             pm.NumberOfDecimalsForProgress = 2;
@@ -89,7 +90,7 @@ namespace ProgressManagerProject
                 var words = (from w in l where w == mw select w).ToList();
 
                 pm.ResetTask();
-                pm.SetInitialTime();
+                pm.SetStartTime();
                 pm.ItemsCount = words.Count();
 
                 pm.SetControlText(lblElapsedTime, "{et}");
@@ -107,7 +108,7 @@ namespace ProgressManagerProject
 
         private void Pm_ProcessCompletedEvent(object sender)
         {
-            var progressMan = sender as ProgressManager;
+            var progressMan = sender as Progress;
 
             progressMan.SetControlText(lblElapsedTime, "{et}");
             progressMan.SetControlText(lblRemainingTime, "{rt}");
@@ -115,7 +116,7 @@ namespace ProgressManagerProject
 
         private void Pm_ProgressTickEvent(object sender)
         {
-            var progressMan = sender as ProgressManager;
+            var progressMan = sender as Progress;
 
             progressMan.SetControlText(lblElapsedTime, "{et}");
             progressMan.SetControlText(lblRemainingTime, "{rt}");
@@ -129,6 +130,51 @@ namespace ProgressManagerProject
         private void timer1_Tick(object sender, EventArgs e)
         {
             MessageBox.Show("TEst");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Random rnd = new Random();
+
+            var pm = new Progress();
+
+            pm.ProgressBar = progressBar3;
+            pm.NumberOfDecimalsForProgress = 2;
+            pm.ProgressTickEvent += Pm_ProgressTickEvent;
+            pm.ProcessCompletedEvent += Pm_ProcessCompletedEvent;
+
+            //var subTask = pm.CreateSubProgressTask(0);
+
+            //subTask.ProgressBar = progressBarEx2;
+            var totalProgress = 0F;
+            var progress = 0F;
+
+            pm.SetStartTime();
+
+            while (totalProgress<101F)
+            {
+                progress = rnd.Next(5, 30) / 10F;
+                totalProgress += progress;
+
+                pm.SetControlText(lblElapsedTime, "{et}");
+                pm.SetControlText(lblRemainingTime, "{rt}");
+                               
+                //IMPORTANTE: El tiempo que demora en procesar un pedazo de todo el Proceso esta relacionado
+                //con el tiempo de procesado por eso se multiplican
+                System.Threading.Thread.Sleep((int)(progress * rnd.Next(200 , 400)));
+
+                Console.WriteLine(totalProgress.ToString());
+                pm.PerformStep(totalProgress);
+                pm.SetControlText(label14, "{prog} %");
+
+
+            }
+
         }
     }
 }

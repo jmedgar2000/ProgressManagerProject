@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressManagerProject", "ProgressManagerProject\ProgressManagerProject.csproj", "{EBE942DA-BE87-453C-95AD-5F8546E5D46F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUITest", "ProgressManagerProject\GUITest.csproj", "{EBE942DA-BE87-453C-95AD-5F8546E5D46F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressManager", "ProgressManager\ProgressManager.csproj", "{B726447D-F441-45C8-8B96-8D1E114B180E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EBE942DA-BE87-453C-95AD-5F8546E5D46F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBE942DA-BE87-453C-95AD-5F8546E5D46F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBE942DA-BE87-453C-95AD-5F8546E5D46F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B726447D-F441-45C8-8B96-8D1E114B180E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B726447D-F441-45C8-8B96-8D1E114B180E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B726447D-F441-45C8-8B96-8D1E114B180E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B726447D-F441-45C8-8B96-8D1E114B180E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

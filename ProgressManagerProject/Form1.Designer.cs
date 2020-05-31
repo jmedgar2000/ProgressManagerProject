@@ -67,7 +67,22 @@
             this.barberPoleProgressPainter1 = new ProgressODoom.BarberPoleProgressPainter();
             this.progressBarEx1 = new ProgressODoom.ProgressBarEx();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.button3 = new System.Windows.Forms.Button();
             this.alphaGradientPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -98,7 +113,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 26);
+            this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -123,15 +138,16 @@
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(108, 121);
+            this.progressBar2.Location = new System.Drawing.Point(108, 86);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(307, 23);
             this.progressBar2.TabIndex = 7;
+            this.progressBar2.Value = 77;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(194, 147);
+            this.label5.Location = new System.Drawing.Point(194, 112);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 13);
             this.label5.TabIndex = 6;
@@ -140,7 +156,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(328, 147);
+            this.label6.Location = new System.Drawing.Point(328, 112);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 13);
             this.label6.TabIndex = 5;
@@ -150,7 +166,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(108, 147);
+            this.label7.Location = new System.Drawing.Point(108, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 13);
             this.label7.TabIndex = 9;
@@ -176,7 +192,7 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(328, 105);
+            this.label10.Location = new System.Drawing.Point(328, 70);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 13);
             this.label10.TabIndex = 12;
@@ -195,7 +211,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(108, 160);
+            this.label4.Location = new System.Drawing.Point(108, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(11, 13);
             this.label4.TabIndex = 14;
@@ -205,7 +221,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(108, 182);
+            this.label12.Location = new System.Drawing.Point(108, 70);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(16, 21);
             this.label12.TabIndex = 15;
@@ -214,7 +230,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(109, 215);
+            this.label13.Location = new System.Drawing.Point(109, 205);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(11, 13);
             this.label13.TabIndex = 16;
@@ -242,10 +258,10 @@
             this.alphaGradientPanel1.ImagePadding = new System.Windows.Forms.Padding(5);
             this.alphaGradientPanel1.ImagePosition = BlueActivity.Controls.ImagePosition.BottomRight;
             this.alphaGradientPanel1.ImageSize = new System.Drawing.Size(48, 48);
-            this.alphaGradientPanel1.Location = new System.Drawing.Point(35, 279);
+            this.alphaGradientPanel1.Location = new System.Drawing.Point(12, 194);
             this.alphaGradientPanel1.Name = "alphaGradientPanel1";
             this.alphaGradientPanel1.Rounded = true;
-            this.alphaGradientPanel1.Size = new System.Drawing.Size(365, 116);
+            this.alphaGradientPanel1.Size = new System.Drawing.Size(207, 143);
             this.alphaGradientPanel1.TabIndex = 18;
             // 
             // colorWithAlpha1
@@ -451,7 +467,7 @@
             // 
             // barberPoleProgressPainter1
             // 
-            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
+            this.barberPoleProgressPainter1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(44)))), ((int)(((byte)(128)))));
             this.barberPoleProgressPainter1.GlossPainter = null;
             this.barberPoleProgressPainter1.ProgressBorderPainter = this.plainBorderPainter1;
             // 
@@ -462,7 +478,7 @@
             this.progressBarEx1.BorderPainter = this.plainBorderPainter1;
             this.progressBarEx1.Font = new System.Drawing.Font("Power Green", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.progressBarEx1.ForeColor = System.Drawing.Color.Black;
-            this.progressBarEx1.Location = new System.Drawing.Point(105, 194);
+            this.progressBarEx1.Location = new System.Drawing.Point(111, 129);
             this.progressBarEx1.MarqueePercentage = 25;
             this.progressBarEx1.MarqueeSpeed = 30;
             this.progressBarEx1.MarqueeStep = 1;
@@ -482,11 +498,137 @@
             this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 53);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(77, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // domainUpDown1
+            // 
+            this.domainUpDown1.Location = new System.Drawing.Point(12, 86);
+            this.domainUpDown1.Name = "domainUpDown1";
+            this.domainUpDown1.Size = new System.Drawing.Size(77, 21);
+            this.domainUpDown1.TabIndex = 22;
+            this.domainUpDown1.Text = "domainUpDown1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Location = new System.Drawing.Point(242, 155);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 182);
+            this.groupBox1.TabIndex = 23;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(23, 20);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(143, 147);
+            this.listBox1.TabIndex = 0;
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Location = new System.Drawing.Point(490, 185);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(304, 17);
+            this.hScrollBar1.TabIndex = 24;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(505, 217);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(87, 17);
+            this.radioButton1.TabIndex = 25;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(640, 217);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(87, 17);
+            this.radioButton2.TabIndex = 26;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(465, 250);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(313, 123);
+            this.tabControl1.TabIndex = 27;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(305, 97);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(305, 97);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 155);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(207, 21);
+            this.textBox1.TabIndex = 28;
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.WorkerReportsProgress = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(576, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 29;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 419);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.hScrollBar1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.domainUpDown1);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.alphaGradientPanel1);
             this.Controls.Add(this.progressBarEx1);
             this.Controls.Add(this.alphaGradientPanel2);
@@ -513,6 +655,8 @@
             this.Text = "Form1";
             this.alphaGradientPanel2.ResumeLayout(false);
             this.alphaGradientPanel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,6 +702,19 @@
         private ProgressODoom.PlainBackgroundPainter plainBackgroundPainter1;
         private ProgressODoom.ProgressBarEx progressBarEx2;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
