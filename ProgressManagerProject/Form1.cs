@@ -22,12 +22,8 @@ namespace ProgressManagerProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var f = "";
-
-            for (int i=0; i<100000; i++)
-            {
-                f += "w";
-            }
+            var ts = new TimeSpan(10, 0, 1); // DateTime.Now.TimeOfDay;
+            var tx = TimeSpan.FromMilliseconds(ts.TotalMilliseconds - 2000);
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -89,7 +85,7 @@ namespace ProgressManagerProject
             {
                 var words = (from w in l where w == mw select w).ToList();
 
-                pm.ResetTask();
+                //pm.ResetTask();
                 pm.SetStartTime();
                 pm.ItemsCount = words.Count();
 

@@ -17,7 +17,7 @@ namespace ProgressManager
         private TimeSpan remainingTime;
         private TimeSpan estimatedTime;
         private TimeSpan elapsedtime;
-        private TimeSpan startTime;
+        private DateTime? startDateTime;
         private System.Timers.Timer timer;
 
         public int ItemsCount { get; set; }
@@ -55,30 +55,40 @@ namespace ProgressManager
 
             timer = new System.Timers.Timer(1000);
             timer.Elapsed += Timer_Elapsed;
+            //timer.Enabled = true;
 
             SubProgressManagers = new List<Progress>();
         }
 
-        public Progress(int itemsCount):base()
+        public Progress(int itemsCount):this()
         {
             ItemsCount = itemsCount;
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            if (startDateTime.HasValue == false)
+            {
+                throw new ArgumentException("Call SetStartTime before call PerformStep");
+            }
+
             if (ProgressTickEvent != null)
             {
-                elapsedtime = DateTime.Now.Subtract(startTime).TimeOfDay;
+                Console.WriteLine(DateTime.Now.ToLongTimeString());
+                elapsedtime = DateTime.Now.Subtract(startDateTime.Value);
+                remainingTime = TimeSpan.FromMilliseconds(remainingTime.TotalMilliseconds - 1000);
                 ProgressTickEvent(this);
             }
         }
 
         public Progress CreateSubProgressTask(int itemsCount)
         {
-            Progress progressManager = new Progress(itemsCount);
+            Progress progressManager = new Progress(itemsCount)
+            {
+                ParentProgressManager = this,
+                NumberOfDecimalsForProgress = this.NumberOfDecimalsForProgress
+            };
 
-            progressManager.ParentProgressManager = this;
-            progressManager.NumberOfDecimalsForProgress = this.NumberOfDecimalsForProgress;
             progressManager.ProcessCompletedEvent += ProgressManager_ProcessCompletedEvent;
 
             SubProgressManagers.Add(progressManager);
@@ -93,9 +103,12 @@ namespace ProgressManager
 
         public void SetStartTime()
         {
-            startTime = DateTime.Now.TimeOfDay;
+            startDateTime = DateTime.Now;
             timer.Enabled = true;
             timer.Start();
+
+            //Cuando inicia el proceso y tiempo mandamos el evento tick aunque tenga 0 
+            ProgressTickEvent(this);
         }
 
         public void SetControlText(Label label, string text)
@@ -103,6 +116,7 @@ namespace ProgressManager
             label.Invoke((MethodInvoker)delegate
             {
                 label.Text = GetRawText(text);
+                label.Update();
             });
         }
 
@@ -121,14 +135,18 @@ namespace ProgressManager
 
         public void PerformStep()
         {
-            if (ItemsCount <= 0) return;
-            if (startTime.TotalSeconds == 0)
+            if (ItemsCount <= 0)
+            {
+                throw new ArgumentOutOfRangeException("ItemsCount can not be less or equal than 0");
+            }
+
+            if (startDateTime.HasValue==false)
             {
                 throw new ArgumentException("Call SetStartTime before call PerformStep");
             }
             
             currentItemIndex++;
-            avgTaskTime = (float)DateTime.Now.Subtract(startTime).TimeOfDay.TotalMilliseconds / currentItemIndex;
+            avgTaskTime = (float)DateTime.Now.Subtract(startDateTime.Value).TotalMilliseconds / currentItemIndex;
             progress = (currentItemIndex / (float)ItemsCount) * 100F;
 
             if (ProgressBar != null)
@@ -159,7 +177,9 @@ namespace ProgressManager
 
         public void PerformStep(float progress)
         {
-            if (startTime.TotalSeconds == 0)
+            if (progress == 0) return;
+
+            if (startDateTime.HasValue == false)
             {
                 throw new ArgumentException("Call SetStartTime before call PerformStep");
             }
@@ -170,18 +190,20 @@ namespace ProgressManager
             {
                 ProgressBar.Invoke((MethodInvoker)delegate
                 {
-                    if (progress >= 0F )
+                    if (progress > 0F )
                     {
                         if (progress <= 100F)
                             ProgressBar.Value = (int)progress;
                         else
                             ProgressBar.Value = 100;
                     }
-                        
                 });
             }
 
-            remainingTime = TimeSpan.FromMilliseconds(((float)DateTime.Now.Subtract(startTime).TimeOfDay.TotalMilliseconds * 
+            //remainingTime = TimeSpan.FromMilliseconds(((float)DateTime.Now.TimeOfDay.Subtract(startTime).TotalMilliseconds * 
+            //    (100F - progress)) / progress);
+
+            remainingTime = TimeSpan.FromMilliseconds(((float)DateTime.Now.Subtract(startDateTime.Value).TotalMilliseconds *
                 (100F - progress)) / progress);
             //estimatedTime = TimeSpan.FromMilliseconds(ItemsCount * avgTaskTime);
             //Console.WriteLine("index: " + currentItemIndex + "  AvgTaskTime: " + avgTaskTime 
@@ -199,11 +221,19 @@ namespace ProgressManager
             }
         }
 
+
+        private double ConverToMilliseconds(DateTime dateTime)
+        {
+            return dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+        }
+
         public void ResetTask()
         {
+           
             remainingTime = new TimeSpan();
             estimatedTime = new TimeSpan();
             elapsedtime = new TimeSpan();
+            startDateTime = null;
             remainingItemsCount = 0;
             currentItemIndex = 0;
             avgTaskTime = 0;
